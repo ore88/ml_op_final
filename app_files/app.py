@@ -13,9 +13,9 @@ FEATURES_MASK = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS',\
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
-def server_check():
-    return "Your First GCP Webapp Runs! Congratulations!"
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 @app.route('/predict', methods=['POST'])
 def predictor():
@@ -30,7 +30,7 @@ def predictor():
 
     pred = MODEL.predict(features)[0]
 
-    return jsonify(status='ok', predict=pred)
+    return jsonify('home.html', predict=pred)
 
 if __name__=='__main__':
     app.run( debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)) )
